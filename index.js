@@ -9,12 +9,19 @@ $(document).ready(function() {
         console.log(position);
         weatherAPI.latitude = position.coords.latitude;
         weatherAPI.longitude = position.coords.longitude;
+        weatherAPI.weatherInfo();
+        weatherAPI.reverseGeo();
     }
 });
 
 var weatherAPI = {
     latitude: "",
     longitude: "",
+    weatherType: "",
+    weatherImg: "",
+    temp: "",
+    maxTemp: "",
+    minTemp: "",
     weatherInfo: function() {
         $.ajax({
             method: "GET",
@@ -23,10 +30,15 @@ var weatherAPI = {
             dataType: "json",
             success: function(weather) {
                 console.log(weather);
-                
+                weatherAPI.weatherType = weather.weather[0].main;
+                weatherAPI.temp = weather.main.temp;
+                weatherAPI.maxTemp = weather.main.temp_max;
+                weatherAPI.minTemp = weather.main.temp_min;
             }
         });
     },
+    city: "",
+    state: "",
     reverseGeo: function() {
         $.ajax({
             method: "GET",
@@ -35,7 +47,10 @@ var weatherAPI = {
             dataType: "json",
             success: function(cityinfo) {
                 console.log(cityinfo);
-                
+                var local = cityinfo.results[0];
+                weatherAPI.city = local.address_components[3].long_name;
+                weatherAPI.state = local.address_components[5].short_name;
+                document.getElementById("cityState").innerHTML = weatherAPI.city + ", " + weatherAPI.state;
             }
         });
     },
