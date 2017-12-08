@@ -9,14 +9,37 @@
     <!-- REQUIREMENTS
         Page requires a key.js file with the following format
         var APIKEY = "apikey from openweathermap.org"
+        & var GOOGLEKEY = "apikey from google geoservices"
     -->
 </head>
     
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-9">
+                
+            </div>
+            <div class="col-xs-3 float:right">
+                <label class="switch"><input type="checkbox" id="togBtn"><div class="slider round"></div></label>
+            </div>
+        </div>
+    </div>
     <div class="container text-center">
-        <h2>Weather Title</h2>
+        <h2>Local Weather</h2>
         <div class="container">
             <span id="cityState"></span>
+            <hr/>
+            <div class="container">
+                <span id="weatherImg"></span>
+                <br>
+                <span id="weatherType"></span>
+                <br>
+                <span>Current Temperature: </span><span id="currentTemp"></span>
+                <br>
+                <span>High: </span><span id="maxT"></span>
+                <br>
+                <span>Low: </span><span id="minT"></span>
+            </div>
         </div>
     </div>
         

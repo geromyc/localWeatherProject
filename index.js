@@ -18,7 +18,7 @@ var weatherAPI = {
     latitude: "",
     longitude: "",
     weatherType: "",
-    weatherImg: "",
+    icon: "",
     temp: "",
     maxTemp: "",
     minTemp: "",
@@ -31,9 +31,15 @@ var weatherAPI = {
             success: function(weather) {
                 console.log(weather);
                 weatherAPI.weatherType = weather.weather[0].main;
+                weatherAPI.icon = weather.weather[0].icon;
                 weatherAPI.temp = weather.main.temp;
                 weatherAPI.maxTemp = weather.main.temp_max;
                 weatherAPI.minTemp = weather.main.temp_min;
+                document.getElementById("currentTemp").innerHTML = weatherAPI.temp;
+                document.getElementById("minT").innerHTML = weatherAPI.minTemp;
+                document.getElementById("maxT").innerHTML = weatherAPI.maxTemp;
+                document.getElementById("weatherType").innerHTML = weatherAPI.weatherType;
+                document.getElementById("weatherImg").innerHTML = '<img src=' + '"http://openweathermap.org/img/w/' +weatherAPI.icon+ '.png">';
             }
         });
     },
@@ -56,3 +62,16 @@ var weatherAPI = {
     },
 };
 
+document.getElementById("togBtn").onchange = function() {
+    var checkbox = document.getElementById("togBtn");
+    if(checkbox.checked){
+        document.getElementById("currentTemp").innerHTML = (weatherAPI.temp - 32) * 5 / 9;
+        document.getElementById("maxT").innerHTML = (weatherAPI.maxTemp - 32) * 5 / 9;
+        document.getElementById("minT").innerHTML = (weatherAPI.minTemp - 32) * 5 / 9;
+    }
+    else {
+        document.getElementById("currentTemp").innerHTML =  weatherAPI.temp;
+        document.getElementById("maxT").innerHTML =  weatherAPI.maxTemp;
+        document.getElementById("minT").innerHTML =  weatherAPI.minTemp;
+    }
+};
