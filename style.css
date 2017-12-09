@@ -1,3 +1,13 @@
+body {
+    font-family: Helvetica, "Century Gothic", Arial;
+    background-color: black;
+    color: white;
+}
+
+.dispArea {
+    background-color: #8585ad;
+    border-radius: 15px;
+}
 .switch {
     position: relative;
     display: inline-block;

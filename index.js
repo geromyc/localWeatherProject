@@ -35,9 +35,9 @@ var weatherAPI = {
                 weatherAPI.temp = weather.main.temp;
                 weatherAPI.maxTemp = weather.main.temp_max;
                 weatherAPI.minTemp = weather.main.temp_min;
-                document.getElementById("currentTemp").innerHTML = weatherAPI.temp;
-                document.getElementById("minT").innerHTML = weatherAPI.minTemp;
-                document.getElementById("maxT").innerHTML = weatherAPI.maxTemp;
+                document.getElementById("currentTemp").innerHTML = parseFloat(weatherAPI.temp).toFixed(0);
+                document.getElementById("minT").innerHTML = parseFloat(weatherAPI.minTemp).toFixed(0);
+                document.getElementById("maxT").innerHTML = parseFloat(weatherAPI.maxTemp).toFixed(0);
                 document.getElementById("weatherType").innerHTML = weatherAPI.weatherType;
                 document.getElementById("weatherImg").innerHTML = '<img src=' + '"http://openweathermap.org/img/w/' +weatherAPI.icon+ '.png">';
             }
@@ -65,13 +65,13 @@ var weatherAPI = {
 document.getElementById("togBtn").onchange = function() {
     var checkbox = document.getElementById("togBtn");
     if(checkbox.checked){
-        document.getElementById("currentTemp").innerHTML = (weatherAPI.temp - 32) * 5 / 9;
-        document.getElementById("maxT").innerHTML = (weatherAPI.maxTemp - 32) * 5 / 9;
-        document.getElementById("minT").innerHTML = (weatherAPI.minTemp - 32) * 5 / 9;
+        document.getElementById("currentTemp").innerHTML = parseFloat((weatherAPI.temp - 32) * 5 / 9).toFixed(0);
+        document.getElementById("maxT").innerHTML = parseFloat((weatherAPI.maxTemp - 32) * 5 / 9).toFixed(0);
+        document.getElementById("minT").innerHTML = parseFloat((weatherAPI.minTemp - 32) * 5 / 9).toFixed(0);
     }
     else {
-        document.getElementById("currentTemp").innerHTML =  weatherAPI.temp;
-        document.getElementById("maxT").innerHTML =  weatherAPI.maxTemp;
-        document.getElementById("minT").innerHTML =  weatherAPI.minTemp;
+        document.getElementById("currentTemp").innerHTML =  parseFloat(weatherAPI.temp).toFixed(0);
+        document.getElementById("maxT").innerHTML =  parseFloat(weatherAPI.maxTemp).toFixed(0);
+        document.getElementById("minT").innerHTML =  parseFloat(weatherAPI.minTemp).toFixed(0);
     }
 };
