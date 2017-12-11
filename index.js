@@ -19,9 +19,13 @@ var weatherAPI = {
     longitude: "",
     weatherType: "",
     icon: "",
+    description: "",
+    id: "",
+    humidity: "",
     temp: "",
     maxTemp: "",
     minTemp: "",
+    windSpd: "",
     weatherInfo: function() {
         $.ajax({
             method: "GET",
@@ -32,13 +36,19 @@ var weatherAPI = {
                 console.log(weather);
                 weatherAPI.weatherType = weather.weather[0].main;
                 weatherAPI.icon = weather.weather[0].icon;
+                weatherAPI.description = weather.weather[0].description;
+                weatherAPI.id = weather.weather[0].id;
                 weatherAPI.temp = weather.main.temp;
                 weatherAPI.maxTemp = weather.main.temp_max;
                 weatherAPI.minTemp = weather.main.temp_min;
-                document.getElementById("currentTemp").innerHTML = parseFloat(weatherAPI.temp).toFixed(0);
-                document.getElementById("minT").innerHTML = parseFloat(weatherAPI.minTemp).toFixed(0);
-                document.getElementById("maxT").innerHTML = parseFloat(weatherAPI.maxTemp).toFixed(0);
+                weatherAPI.humidity = weather.main.humidity;
+                weatherAPI.windSpd = weather.wind.speed;
+                document.getElementById("currentTemp").innerHTML = parseFloat(weatherAPI.temp).toFixed(0) + "º";
+                document.getElementById("minT").innerHTML = parseFloat(weatherAPI.minTemp).toFixed(0) + "º";
+                document.getElementById("maxT").innerHTML = parseFloat(weatherAPI.maxTemp).toFixed(0) + "º";
                 document.getElementById("weatherType").innerHTML = weatherAPI.weatherType;
+                document.getElementById("humid").innerHTML = weatherAPI.humidity + "%";
+                document.getElementById("wind").innerHTML = weatherAPI.windSpd + " mph";
                 document.getElementById("weatherImg").innerHTML = '<img src=' + '"http://openweathermap.org/img/w/' +weatherAPI.icon+ '.png">';
             }
         });
@@ -60,18 +70,40 @@ var weatherAPI = {
             }
         });
     },
+    
+    citySearch: function() {
+        var cityName = document.getElementById("search").value;
+        console.log(cityName);
+        $.ajax({
+            url: "https://maps.googleapis.com/maps/api/geocode/json",
+            data: { address: cityName, key: GOOGLEKEY },
+            success: function(data) {
+                weatherAPI.latitude = data.results[0].geometry.location.lat;
+                weatherAPI.longitude = data.results[0].geometry.location.lng;
+                weatherAPI.weatherInfo();
+                document.getElementById("cityState").innerHTML = cityName;
+            }
+
+        });
+    }
 };
 
 document.getElementById("togBtn").onchange = function() {
     var checkbox = document.getElementById("togBtn");
     if(checkbox.checked){
-        document.getElementById("currentTemp").innerHTML = parseFloat((weatherAPI.temp - 32) * 5 / 9).toFixed(0);
-        document.getElementById("maxT").innerHTML = parseFloat((weatherAPI.maxTemp - 32) * 5 / 9).toFixed(0);
-        document.getElementById("minT").innerHTML = parseFloat((weatherAPI.minTemp - 32) * 5 / 9).toFixed(0);
+        document.getElementById("currentTemp").innerHTML = parseFloat((weatherAPI.temp - 32) * 5 / 9).toFixed(0) + "º";
+        document.getElementById("maxT").innerHTML = parseFloat((weatherAPI.maxTemp - 32) * 5 / 9).toFixed(0) + "º";
+        document.getElementById("minT").innerHTML = parseFloat((weatherAPI.minTemp - 32) * 5 / 9).toFixed(0) + "º";
     }
     else {
-        document.getElementById("currentTemp").innerHTML =  parseFloat(weatherAPI.temp).toFixed(0);
-        document.getElementById("maxT").innerHTML =  parseFloat(weatherAPI.maxTemp).toFixed(0);
-        document.getElementById("minT").innerHTML =  parseFloat(weatherAPI.minTemp).toFixed(0);
+        document.getElementById("currentTemp").innerHTML =  parseFloat(weatherAPI.temp).toFixed(0) + "º";
+        document.getElementById("maxT").innerHTML =  parseFloat(weatherAPI.maxTemp).toFixed(0) + "º";
+        document.getElementById("minT").innerHTML =  parseFloat(weatherAPI.minTemp).toFixed(0) + "º";
     }
+};
+
+document.getElementById("submit").onclick = function(event) {
+    event.preventDefault();
+    weatherAPI.citySearch();
+    document.getElementById("search").value = "";
 };

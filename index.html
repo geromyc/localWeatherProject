@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css">
     <title>Local Weather</title>
     <!-- REQUIREMENTS
         Page requires a key.js file with the following format
@@ -16,10 +17,12 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-xs-9">
-                
+            <div class="col-md-9">
+                <form>
+                    <span>Look up weather by City: <input placeholder="City, State" id="search"> <button class="btn btn-primary" id="submit">Submit</button> </span>
+                </form>
             </div>
-            <div class="col-xs-3 float:right">
+            <div class="col-md-3">
                 <label class="switch"><input type="checkbox" id="togBtn"><div class="slider round"></div></label>
             </div>
         </div>
@@ -35,10 +38,14 @@
                 <span id="weatherType"></span>
                 <br>
                 <span>Current Temperature: </span><span id="currentTemp"></span>
-                <br>
+                <hr>
                 <span>High: </span><span id="maxT"></span>
                 <br>
                 <span>Low: </span><span id="minT"></span>
+                <br>
+                <span>Humidity: </span><span id="humid"></span>
+                <br>
+                <span>Wind: </span><span id="wind"></span>
             </div>
         </div>
     </div>
