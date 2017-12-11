@@ -49,7 +49,8 @@ var weatherAPI = {
                 document.getElementById("weatherType").innerHTML = weatherAPI.weatherType;
                 document.getElementById("humid").innerHTML = weatherAPI.humidity + "%";
                 document.getElementById("wind").innerHTML = weatherAPI.windSpd + " mph";
-                document.getElementById("weatherImg").innerHTML = '<img src=' + '"http://openweathermap.org/img/w/' +weatherAPI.icon+ '.png">';
+                // document.getElementById("weatherImg").innerHTML = '<img src=' + '"http://openweathermap.org/img/w/' +weatherAPI.icon+ '.png">';
+                document.getElementById("weatherImg").innerHTML = '<i class="wi wi-owm-' + weatherAPI.id + '"></i>';
             }
         });
     },
