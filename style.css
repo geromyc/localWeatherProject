@@ -4,10 +4,20 @@ body {
     color: white;
 }
 
-.dispArea {
-    background-color: #8585ad;
-    border-radius: 15px;
+hr {
+    border-color: white;
 }
+
+#submit {
+    background-color: #151537;
+}
+
+.dispArea {
+    background-color: #151537;
+    border-radius: 15px;
+    /*background: url("");*/
+}
+
 .switch {
     position: relative;
     display: inline-block;

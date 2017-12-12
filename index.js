@@ -30,7 +30,7 @@ var weatherAPI = {
         $.ajax({
             method: "GET",
             url: "https://api.openweathermap.org/data/2.5/weather",
-            data: { lat: weatherAPI.latitude, lon: weatherAPI.longitude, units: "imperial", appid: APIKEY},
+            data: { lat: weatherAPI.latitude, lon: weatherAPI.longitude, units: "imperial", appid: APIKEY },
             dataType: "json",
             success: function(weather) {
                 console.log(weather);
@@ -43,14 +43,15 @@ var weatherAPI = {
                 weatherAPI.minTemp = weather.main.temp_min;
                 weatherAPI.humidity = weather.main.humidity;
                 weatherAPI.windSpd = weather.wind.speed;
-                document.getElementById("currentTemp").innerHTML = parseFloat(weatherAPI.temp).toFixed(0) + "º";
-                document.getElementById("minT").innerHTML = parseFloat(weatherAPI.minTemp).toFixed(0) + "º";
-                document.getElementById("maxT").innerHTML = parseFloat(weatherAPI.maxTemp).toFixed(0) + "º";
+                document.getElementById("currentTemp").innerHTML = (weatherAPI.temp).toFixed(0) + "º";
+                document.getElementById("minT").innerHTML = (weatherAPI.minTemp).toFixed(0) + "º";
+                document.getElementById("maxT").innerHTML = (weatherAPI.maxTemp).toFixed(0) + "º";
                 document.getElementById("weatherType").innerHTML = weatherAPI.weatherType;
                 document.getElementById("humid").innerHTML = weatherAPI.humidity + "%";
                 document.getElementById("wind").innerHTML = weatherAPI.windSpd + " mph";
                 // document.getElementById("weatherImg").innerHTML = '<img src=' + '"http://openweathermap.org/img/w/' +weatherAPI.icon+ '.png">';
                 document.getElementById("weatherImg").innerHTML = '<i class="wi wi-owm-' + weatherAPI.id + '"></i>';
+                // weatherAPI.imgFlip();
             }
         });
     },
@@ -60,7 +61,7 @@ var weatherAPI = {
         $.ajax({
             method: "GET",
             url: "https://maps.googleapis.com/maps/api/geocode/json",
-            data: { latlng: weatherAPI.latitude + "," + weatherAPI.longitude, key: GOOGLEKEY},
+            data: { latlng: weatherAPI.latitude + "," + weatherAPI.longitude, key: GOOGLEKEY },
             dataType: "json",
             success: function(cityinfo) {
                 console.log(cityinfo);
@@ -86,25 +87,60 @@ var weatherAPI = {
             }
 
         });
-    }
+    },
+    
+    // Background Image Changer
+    // imgFlip: function() {
+    //     var x = weatherAPI.id;
+    //     var y = document.getElementById("dispArea").style.backgroundImage;
+    //     // console.log(x);
+    //     switch (true) {
+    //         case (x >= 200 && x < 299):
+    //             y = "url('https://unsplash.com/photos/NcTQ602gKLI')";
+    //             break;         
+    //         case x >= 300 && x < 399:
+    //             y = "url('https://unsplash.com/photos/Nw_D8v79PM4')";
+    //             break;
+    //         case x >= 500 && x < 599:
+    //             y = "url('https://unsplash.com/photos/Fs1ehbtXZjc')";
+    //             break;
+    //         case x >= 600 && x < 699:
+    //             y = "url('https://unsplash.com/photos/OoQKL4cLZuc')";
+    //             break;
+    //         case x >= 700 && x < 799:
+    //             y = "url('https://unsplash.com/photos/NdDnca5BcEk')";
+    //             break;
+    //         case x == 800:
+    //             y = "url('https://unsplash.com/photos/umFDoNM5fiM')";
+    //             break;
+    //         case x >= 801 && x < 899:
+    //             y = "url('https://unsplash.com/photos/ap3LXI0fPJY')";
+    //             break;
+    //         case x >900:
+    //             y = "url('https://unsplash.com/photos/qexZLgMcbPc')";
+    //         default:
+    //             console.log("run");
+    //     }
+    // },
 };
 
 document.getElementById("togBtn").onchange = function() {
     var checkbox = document.getElementById("togBtn");
     if(checkbox.checked){
-        document.getElementById("currentTemp").innerHTML = parseFloat((weatherAPI.temp - 32) * 5 / 9).toFixed(0) + "º";
-        document.getElementById("maxT").innerHTML = parseFloat((weatherAPI.maxTemp - 32) * 5 / 9).toFixed(0) + "º";
-        document.getElementById("minT").innerHTML = parseFloat((weatherAPI.minTemp - 32) * 5 / 9).toFixed(0) + "º";
+        document.getElementById("currentTemp").innerHTML = ((weatherAPI.temp - 32) * 5 / 9).toFixed(0) + "º";
+        document.getElementById("maxT").innerHTML = ((weatherAPI.maxTemp - 32) * 5 / 9).toFixed(0) + "º";
+        document.getElementById("minT").innerHTML = ((weatherAPI.minTemp - 32) * 5 / 9).toFixed(0) + "º";
     }
     else {
-        document.getElementById("currentTemp").innerHTML =  parseFloat(weatherAPI.temp).toFixed(0) + "º";
-        document.getElementById("maxT").innerHTML =  parseFloat(weatherAPI.maxTemp).toFixed(0) + "º";
-        document.getElementById("minT").innerHTML =  parseFloat(weatherAPI.minTemp).toFixed(0) + "º";
+        document.getElementById("currentTemp").innerHTML =  (weatherAPI.temp).toFixed(0) + "º";
+        document.getElementById("maxT").innerHTML =  (weatherAPI.maxTemp).toFixed(0) + "º";
+        document.getElementById("minT").innerHTML =  (weatherAPI.minTemp).toFixed(0) + "º";
     }
 };
 
 document.getElementById("submit").onclick = function(event) {
     event.preventDefault();
     weatherAPI.citySearch();
+    // weatherAPI.imgFlip();
     document.getElementById("search").value = "";
 };
